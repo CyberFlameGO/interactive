@@ -132,7 +132,7 @@ export function tryAddUriToRoutingSlip(kernelCommandOrEventEnvelope: KernelComma
 export const onKernelInfoUpdates: ((compositeKernel: CompositeKernel) => void)[] = [];
 
 export function ensureOrUpdateProxyForKernelInfo(kernelInfoProduced: contracts.KernelInfoProduced, compositeKernel: CompositeKernel) {
-    const uriToLookup = kernelInfoProduced.kernelInfo.remoteUri ?? kernelInfoProduced.kernelInfo.uri;
+    const uriToLookup = kernelInfoProduced.kernelInfo.uri ?? kernelInfoProduced.kernelInfo.remoteUri;
     if (uriToLookup) {
         let kernel = compositeKernel.findKernelByUri(uriToLookup);
         if (!kernel) {
