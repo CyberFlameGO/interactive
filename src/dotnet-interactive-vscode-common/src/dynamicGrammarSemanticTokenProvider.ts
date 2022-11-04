@@ -45,6 +45,11 @@ const wellKnownLanguages: { languageName: string, grammarFileName: string, alias
     { languageName: 'kql', grammarFileName: 'kql.tmGrammar.json', aliases: ['KQL'] },
 ];
 
+// aliases that we might want to manually specify
+const wellKnownAliases: { languageName: string, aliases: string[] }[] = [
+    { languageName: 'sql', aliases: ['SQLite', 'T-SQL'] }
+];
+
 export class DynamicGrammarSemanticTokenProvider {
     private _documentKernelInfos: Map<vscodeLike.Uri, Map<string, contracts.KernelInfo>> = new Map();
     private _documentGrammarRegistries: Map<vscodeLike.Uri, vsctm.Registry> = new Map();
@@ -187,7 +192,7 @@ export class DynamicGrammarSemanticTokenProvider {
         for (const wellKnown of wellKnownLanguages) {
             const grammarPath = path.join(grammarDir, wellKnown.grammarFileName);
             const languageInfo = this.createLanguageInfoFromGrammar(wellKnown.languageName, `source.${wellKnown.languageName}`, grammarPath);
-            for (const languageNameOrAlias of [wellKnown.languageName, ...wellKnown.aliases]) {
+            for (const languageNameOrAlias of [wellKnown.languageName, ...wellKnown.aliases].map(normalizeLanguageName)) {
                 this._languageNameInfoMap.set(languageNameOrAlias, languageInfo);
                 seenLanguages.add(languageNameOrAlias);
             }
@@ -203,7 +208,7 @@ export class DynamicGrammarSemanticTokenProvider {
                     if (typeof grammar?.scopeName === 'string' &&
                         typeof grammar?.path === 'string') {
                         // ensure language is in the map
-                        const languageName = typeof grammar.language === 'string' ? <string>grammar.language : <string>extension.packageJSON.name;
+                        const languageName = normalizeLanguageName(typeof grammar.language === 'string' ? <string>grammar.language : <string>extension.packageJSON.name);
                         if (!seenLanguages.has(languageName)) {
                             const grammarPath = path.join(extension.extensionPath, grammar.path);
                             if (this.fileExists(grammarPath)) {
@@ -220,12 +225,25 @@ export class DynamicGrammarSemanticTokenProvider {
             if (Array.isArray(extension.packageJSON?.contributes?.languages)) {
                 for (let languageIndex = 0; languageIndex < extension.packageJSON.contributes.languages.length; languageIndex++) {
                     const language = extension.packageJSON.contributes.languages[languageIndex];
-                    const languageInfo = this._languageNameInfoMap.get(<string>language.id);
+                    const languageId = normalizeLanguageName(<string>language.id);
+                    const languageInfo = this._languageNameInfoMap.get(languageId);
                     if (languageInfo) {
                         const aliases = Array.isArray(language.aliases) ? language.aliases : [];
-                        for (const alias of aliases) {
+                        for (const alias of aliases.map(normalizeLanguageName)) {
                             this._languageNameInfoMap.set(alias, languageInfo);
                         }
+                    }
+                }
+            }
+        }
+
+        // set any extra aliases, but only if they're not already set
+        for (const wellKnownAlias of wellKnownAliases) {
+            const languageInfo = this._languageNameInfoMap.get(normalizeLanguageName(wellKnownAlias.languageName));
+            if (languageInfo) {
+                for (const alias of wellKnownAlias.aliases.map(normalizeLanguageName)) {
+                    if (!this._languageNameInfoMap.has(alias)) {
+                        this._languageNameInfoMap.set(alias, languageInfo);
                     }
                 }
             }
@@ -426,6 +444,10 @@ export class DynamicGrammarSemanticTokenProvider {
 
         return null;
     }
+}
+
+function normalizeLanguageName(languageName: string): string {
+    return languageName.toLowerCase();
 }
 
 function languageNameFromKernelInfo(kernelInfo: contracts.KernelInfo): string {

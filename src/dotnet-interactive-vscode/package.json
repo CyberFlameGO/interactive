@@ -355,6 +355,9 @@
           "polyglot-notebook-meta-attribute": [
             "meta.attribute"
           ],
+          "polyglot-notebook-meta-function": [
+            "meta.function"
+          ],
           "polyglot-notebook-meta-function-call-arguments": [
             "meta.function-call.arguments"
           ],
@@ -363,6 +366,9 @@
           ],
           "polyglot-notebook-meta-indexed-name": [
             "meta.indexed-name"
+          ],
+          "polyglot-notebook-meta-item-access-arguments": [
+            "meta.item-access.arguments"
           ],
           "polyglot-notebook-punctuation-definition-arguments-begin": [
             "punctuation.definition.arguments.begin"
@@ -376,11 +382,29 @@
           "polyglot-notebook-punctuation-definition-list-end": [
             "punctuation.definition.list.end"
           ],
+          "polyglot-notebook-punctuation-definition-parameters-begin": [
+            "punctuation.definition.parameters.begin"
+          ],
+          "polyglot-notebook-punctuation-definition-parameters-end": [
+            "punctuation.definition.parameters.end"
+          ],
+          "polyglot-notebook-punctuation-section-function-begin": [
+            "punctuation.section.function.begin"
+          ],
+          "polyglot-notebook-punctuation-section-function-end": [
+            "punctuation.section.function.end"
+          ],
           "polyglot-notebook-punctuation-separator-element": [
             "punctuation.separator.element"
           ],
+          "polyglot-notebook-punctuation-separator-colon": [
+            "punctuation.separator.colon"
+          ],
           "polyglot-notebook-punctuation-separator-period": [
             "punctuation.separator.period"
+          ],
+          "polyglot-notebook-punctuation-separator-slice": [
+            "punctuation.separator.slice"
           ],
           "polyglot-notebook-variable-parameter-function-call": [
             "variable.parameter.function-call"
@@ -411,6 +435,15 @@
           ],
           "polyglot-notebook-variable-parameter": [
             "variable.parameter"
+          ],
+          "polyglot-notebook-meta-group-simple-subexpression": [
+            "meta.group.simple.subexpression"
+          ],
+          "polyglot-notebook-punctuation-section-group-begin": [
+            "punctuation.section.group.begin"
+          ],
+          "polyglot-notebook-punctuation-section-group-end": [
+            "punctuation.section.group.end"
           ],
           "polyglot-notebook-meta-embedded": [
             "meta.embedded"

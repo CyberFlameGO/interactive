@@ -41,15 +41,23 @@ const manualScopesToAdd = [
     'meta.bracket',
     // python
     'meta.attribute',
+    'meta.function',
     'meta.function-call.arguments',
     'meta.function-call.generic',
     'meta.indexed-name',
+    'meta.item-access.arguments',
     'punctuation.definition.arguments.begin',
     'punctuation.definition.arguments.end',
     'punctuation.definition.list.begin',
     'punctuation.definition.list.end',
+    'punctuation.definition.parameters.begin',
+    'punctuation.definition.parameters.end',
+    'punctuation.section.function.begin',
+    'punctuation.section.function.end',
     'punctuation.separator.element',
+    'punctuation.separator.colon',
     'punctuation.separator.period',
+    'punctuation.separator.slice',
     'variable.parameter.function-call',
     // r
     'punctuation.section.brackets.single.begin',
@@ -61,6 +69,10 @@ const manualScopesToAdd = [
     'variable.other',
     'variable.function',
     'variable.parameter',
+    // pwsh
+    'meta.group.simple.subexpression',
+    'punctuation.section.group.begin',
+    'punctuation.section.group.end',
 ];
 
 const semanticTokenPrefix = 'polyglot-notebook';
