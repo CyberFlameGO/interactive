@@ -349,6 +349,69 @@
           "polyglot-notebook-variable-other-readwrite-global": [
             "variable.other.readwrite.global"
           ],
+          "polyglot-notebook-meta-bracket": [
+            "meta.bracket"
+          ],
+          "polyglot-notebook-meta-attribute": [
+            "meta.attribute"
+          ],
+          "polyglot-notebook-meta-function-call-arguments": [
+            "meta.function-call.arguments"
+          ],
+          "polyglot-notebook-meta-function-call-generic": [
+            "meta.function-call.generic"
+          ],
+          "polyglot-notebook-meta-indexed-name": [
+            "meta.indexed-name"
+          ],
+          "polyglot-notebook-punctuation-definition-arguments-begin": [
+            "punctuation.definition.arguments.begin"
+          ],
+          "polyglot-notebook-punctuation-definition-arguments-end": [
+            "punctuation.definition.arguments.end"
+          ],
+          "polyglot-notebook-punctuation-definition-list-begin": [
+            "punctuation.definition.list.begin"
+          ],
+          "polyglot-notebook-punctuation-definition-list-end": [
+            "punctuation.definition.list.end"
+          ],
+          "polyglot-notebook-punctuation-separator-element": [
+            "punctuation.separator.element"
+          ],
+          "polyglot-notebook-punctuation-separator-period": [
+            "punctuation.separator.period"
+          ],
+          "polyglot-notebook-variable-parameter-function-call": [
+            "variable.parameter.function-call"
+          ],
+          "polyglot-notebook-punctuation-section-brackets-single-begin": [
+            "punctuation.section.brackets.single.begin"
+          ],
+          "polyglot-notebook-punctuation-section-brackets-single-end": [
+            "punctuation.section.brackets.single.end"
+          ],
+          "polyglot-notebook-punctuation-section-parens-begin": [
+            "punctuation.section.parens.begin"
+          ],
+          "polyglot-notebook-punctuation-section-parens-end": [
+            "punctuation.section.parens.end"
+          ],
+          "polyglot-notebook-punctuation-separator-parameters": [
+            "punctuation.separator.parameters"
+          ],
+          "polyglot-notebook-support-function": [
+            "support.function"
+          ],
+          "polyglot-notebook-variable-other": [
+            "variable.other"
+          ],
+          "polyglot-notebook-variable-function": [
+            "variable.function"
+          ],
+          "polyglot-notebook-variable-parameter": [
+            "variable.parameter"
+          ],
           "polyglot-notebook-meta-embedded": [
             "meta.embedded"
           ],

@@ -37,6 +37,30 @@ const manualScopesToAdd = [
     'variable.other.object',
     'variable.other.readwrite',
     'variable.other.readwrite.global',
+    // julia
+    'meta.bracket',
+    // python
+    'meta.attribute',
+    'meta.function-call.arguments',
+    'meta.function-call.generic',
+    'meta.indexed-name',
+    'punctuation.definition.arguments.begin',
+    'punctuation.definition.arguments.end',
+    'punctuation.definition.list.begin',
+    'punctuation.definition.list.end',
+    'punctuation.separator.element',
+    'punctuation.separator.period',
+    'variable.parameter.function-call',
+    // r
+    'punctuation.section.brackets.single.begin',
+    'punctuation.section.brackets.single.end',
+    'punctuation.section.parens.begin',
+    'punctuation.section.parens.end',
+    'punctuation.separator.parameters',
+    'support.function',
+    'variable.other',
+    'variable.function',
+    'variable.parameter',
 ];
 
 const semanticTokenPrefix = 'polyglot-notebook';
