@@ -9,6 +9,70 @@ import { CompositeKernel, Kernel } from '../../src/vscode-common/dotnet-interact
 
 describe('metadata utility tests', async () => {
 
+    it('ipynb notebooks can be identified', () => {
+        const notebookDocument: vscodeLike.NotebookDocument = {
+            uri: {
+                fsPath: 'notebook.ipynb',
+                scheme: 'untitled'
+            },
+            metadata: {}
+        };
+        const isIpynb = metadataUtilities.isIpynbNotebook(notebookDocument);
+        expect(isIpynb).to.be.true;
+    });
+
+    it('interactive notebook can be identified from .dib', () => {
+        const notebookDocument: vscodeLike.NotebookDocument = {
+            uri: {
+                fsPath: 'notebook.dib',
+                scheme: 'untitled'
+            },
+            metadata: {}
+        };
+        const isDotNet = metadataUtilities.isDotNetNotebook(notebookDocument);
+        expect(isDotNet).to.be.true;
+    });
+
+    it('interactive notebook can be identified from metadata in .ipynb', () => {
+        const notebookDocument: vscodeLike.NotebookDocument = {
+            uri: {
+                fsPath: 'notebook.ipynb',
+                scheme: 'untitled'
+            },
+            metadata: {
+                custom: {
+                    metadata: {
+                        kernelspec: {
+                            name: '.net-csharp'
+                        }
+                    }
+                }
+            }
+        };
+        const isDotNet = metadataUtilities.isDotNetNotebook(notebookDocument);
+        expect(isDotNet).to.be.true;
+    });
+
+    it('non-interactive notebook is not identified from metadata in .ipynb', () => {
+        const notebookDocument: vscodeLike.NotebookDocument = {
+            uri: {
+                fsPath: 'notebook.ipynb',
+                scheme: 'untitled'
+            },
+            metadata: {
+                custom: {
+                    metadata: {
+                        kernelspec: {
+                            name: 'python'
+                        }
+                    }
+                }
+            }
+        };
+        const isDotNet = metadataUtilities.isDotNetNotebook(notebookDocument);
+        expect(isDotNet).to.be.false;
+    });
+
     it('cell metadata can be extracted from an interactive document element with old metadata', () => {
         const interactiveDocumentElement: contracts.InteractiveDocumentElement = {
             contents: '',

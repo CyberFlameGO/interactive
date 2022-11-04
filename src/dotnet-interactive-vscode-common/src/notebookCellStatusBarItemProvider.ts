@@ -66,7 +66,9 @@ class DotNetNotebookCellStatusBarItemProvider {
     }
 
     async provideCellStatusBarItems(cell: vscode.NotebookCell, token: vscode.CancellationToken): Promise<vscode.NotebookCellStatusBarItem[]> {
-        // TODO: if ipynb and not one of ours: return [];
+        if (!metadataUtilities.isDotNetNotebook(cell.notebook)) {
+            return [];
+        }
 
         let displayText: string;
         if (cell.document.languageId === 'markdown') {

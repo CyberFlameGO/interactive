@@ -23,6 +23,21 @@ export function isIpynbNotebook(notebookDocument: vscodeLike.NotebookDocument) {
     return notebookDocument.uri.fsPath.toLowerCase().endsWith('.ipynb');
 }
 
+export function isDotNetNotebook(notebook: vscodeLike.NotebookDocument): boolean {
+    const notebookUriString = notebook.uri.toString();
+    if (notebookUriString.endsWith('.dib') || notebook.uri.fsPath.endsWith('.dib')) {
+        return true;
+    }
+
+    const kernelspecMetadata = getKernelspecMetadataFromIpynbNotebookDocument(notebook);
+    if (kernelspecMetadata.name.startsWith('.net-')) {
+        return true;
+    }
+
+    // doesn't look like us
+    return false;
+}
+
 export function getNotebookCellMetadataFromInteractiveDocumentElement(interactiveDocumentElement: contracts.InteractiveDocumentElement): NotebookCellMetadata {
     const cellMetadata = createDefaultNotebookCellMetadata();
 

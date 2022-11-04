@@ -92,7 +92,7 @@ export class DotNetNotebookKernel {
         this.disposables.push(vscode.workspace.onDidOpenTextDocument(async textDocument => {
             if (vscode.window.activeNotebookEditor) {
                 const notebook = vscode.window.activeNotebookEditor.notebook;
-                if (isDotNetNotebook(notebook)) {
+                if (metadataUtilities.isDotNetNotebook(notebook)) {
                     const notebookMetadata = metadataUtilities.getNotebookDocumentMetadataFromNotebookDocument(notebook);
                     const cells = notebook.getCells();
                     const foundCell = cells.find(cell => cell.document === textDocument);
@@ -116,7 +116,7 @@ export class DotNetNotebookKernel {
     }
 
     private async onNotebookOpen(notebook: vscode.NotebookDocument, clientMapper: ClientMapper, jupyterController: vscode.NotebookController): Promise<void> {
-        if (isDotNetNotebook(notebook)) {
+        if (metadataUtilities.isDotNetNotebook(notebook)) {
             // prepare initial grammar
             const kernelInfos = metadataUtilities.getKernelInfosFromNotebookDocument(notebook);
             this.tokensProvider.dynamicTokenProvider.augmentNotebookGrammar(notebook.uri, kernelInfos);
@@ -345,19 +345,4 @@ async function updateDocumentKernelspecMetadata(document: vscode.NotebookDocumen
     const documentMetadata = metadataUtilities.getNotebookDocumentMetadataFromNotebookDocument(document);
     const newMetadata = metadataUtilities.createNewIpynbMetadataWithNotebookDocumentMetadata(document.metadata, documentMetadata);
     await versionSpecificFunctions.replaceNotebookMetadata(document.uri, newMetadata);
-}
-
-function isDotNetNotebook(notebook: vscode.NotebookDocument): boolean {
-    const notebookUriString = notebook.uri.toString();
-    if (notebookUriString.endsWith('.dib') || notebook.uri.fsPath.endsWith('.dib')) {
-        return true;
-    }
-
-    const kernelspecMetadata = metadataUtilities.getKernelspecMetadataFromIpynbNotebookDocument(notebook);
-    if (kernelspecMetadata.name.startsWith('.net-')) {
-        return true;
-    }
-
-    // doesn't look like us
-    return false;
 }
