@@ -42,7 +42,7 @@ const magicCommandSelector: string = '#!';
 
 // grammars shipped with this extension
 const wellKnownLanguages: { languageName: string, grammarFileName: string, aliases: string[] }[] = [
-    { languageName: 'kql', grammarFileName: 'kql.tmGrammar.json', aliases: ['KQL'] },
+    { languageName: 'kql', grammarFileName: 'kql.tmGrammar.json', aliases: [] },
 ];
 
 // aliases that we might want to manually specify
@@ -191,7 +191,7 @@ export class DynamicGrammarSemanticTokenProvider {
         const grammarDir = path.join(__dirname, '..', '..', '..', 'grammars');
         for (const wellKnown of wellKnownLanguages) {
             const grammarPath = path.join(grammarDir, wellKnown.grammarFileName);
-            const languageInfo = this.createLanguageInfoFromGrammar(wellKnown.languageName, `source.${wellKnown.languageName}`, grammarPath);
+            const languageInfo = this.createLanguageInfoFromGrammar(normalizeLanguageName(wellKnown.languageName), `source.${wellKnown.languageName}`, grammarPath);
             for (const languageNameOrAlias of [wellKnown.languageName, ...wellKnown.aliases].map(normalizeLanguageName)) {
                 this._languageNameInfoMap.set(languageNameOrAlias, languageInfo);
                 seenLanguages.add(languageNameOrAlias);
@@ -452,5 +452,5 @@ function normalizeLanguageName(languageName: string): string {
 
 function languageNameFromKernelInfo(kernelInfo: contracts.KernelInfo): string {
     // ensure we have some kind of language name, even if it doesn't map to anything
-    return kernelInfo.languageName ?? `unknown-language-from-kernel-${kernelInfo.localName}`;
+    return normalizeLanguageName(kernelInfo.languageName ?? `unknown-language-from-kernel-${kernelInfo.localName}`);
 }
